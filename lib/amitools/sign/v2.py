@@ -17,7 +17,7 @@ def signed_request_basic(method, service_endpoint, params, creds, timestamp_val)
     from urllib.parse import urlparse
     sig_params = dict(params)
     sig_params.update({
-#        'Timestamp'        : timestamp_val,
+        'Timestamp'        : timestamp_val,
         'SignatureMethod'  : 'HmacSHA256',
         'SignatureVersion' : '2',
         'AWSAccessKeyId'   : creds.access_key,

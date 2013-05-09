@@ -39,12 +39,11 @@ class Agent:
         if params is None:
             params = {}
         if now is None:
-            now = datetime.datetime.now()
+            now = datetime.datetime.utcnow()
         service = get_service(service_name, self.creds.region)
         expires = now + datetime.timedelta(days=5)
         params.update({
                 'Action' : action,
-                'Expires' : expires.strftime(DATETIME_ISO8601_F),
                 })
         assert service.method in {'GET', 'POST'}, service.name
         # do_request will be one of requests.get or requests.post
