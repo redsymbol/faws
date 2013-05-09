@@ -9,6 +9,7 @@ and working with Amazon machine images.
  - ami-waiton - Wait for the image to reach a useful state
  - ami-describe-anscestors - What images are this image derived from?
  - ami-describe-children - What images are derived from this image?
+ - ami-tag-image - Tag an existing image like ami-create-image does
 
 ## Credentials & Region Setup
 
@@ -113,10 +114,10 @@ at all".
 
 By default, some intelligence is applied. If you specify "available",
 and the AMI is in state "failed", it will never be available;
-ami-waiton exits with a error code.  If you specifiy "pending", and it
-reaches "available", it returns immediately with a success code; the
-rationale is that "ami-waiton AMI_ID pending" really means, "wait
-until it is in the pending state, or better."
+ami-waiton exits with a error code.  If you specifiy "pending", and
+the current state is "available", it returns immediately with a
+success code; the rationale is that "ami-waiton AMI_ID pending" really
+means, "wait until it is in the pending state, or better."
 
 If you'd like this magic disabled, use the --dumb option. This will
 strictly interpret the state argument.
@@ -188,3 +189,10 @@ ami-describe-children answers questions like:
 Like ami-describe-anscestors, it works only with images that were
 created via ami-create-images, or those AMIs that are externally
 tagged in the same way ami-create-images does - for the same reasons.
+
+(not implemented yet)
+
+## ami-tag-image
+
+Tags an existing image in the same way that ami-create-image does. You
+must supply all the values yourself.
