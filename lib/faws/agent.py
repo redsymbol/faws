@@ -3,14 +3,14 @@ class Agent:
     def __init__(self, creds=None):
         from concurrent.futures import ThreadPoolExecutor
         if creds is None:
-            from amitools.creds import Creds
+            from faws.creds import Creds
             creds = Creds.discover()
         self.creds = creds
         self.executor = ThreadPoolExecutor(max_workers=2)
         self.url = 'https://{}.ec2.amazonaws.com/'.format(self.creds.region)
 
     def full_params(self, method, action, params, now):
-        from amitools.sign.v4 import (
+        from faws.sign.v4 import (
             signature,
             cr_hash,
             signing_key,
@@ -31,11 +31,11 @@ class Agent:
 #        params['AwsSecretAccessKey'] = self.creds.secret_key
         
     def call(self, action, params=None, service_name='ec2', now=None):
-        from amitools.sign.common import DATETIME_ISO8601_F
+        from faws.sign.common import DATETIME_ISO8601_F
         import requests
         import datetime
-        from amitools.service import get_service
-        from amitools.sign.v2 import signed_request
+        from faws.service import get_service
+        from faws.sign.v2 import signed_request
         if params is None:
             params = {}
         if now is None:
@@ -63,11 +63,11 @@ class Agent:
         return self.executor.submit(do_call)
 
     def call_v4(self, action, params=None, service_name='ec2', now=None):
-        from amitools.sign.common import DATETIME_ISO8601_F
+        from faws.sign.common import DATETIME_ISO8601_F
         import requests
         import datetime
-        from amitools.service import get_service
-        from amitools.sign.v4 import (
+        from faws.service import get_service
+        from faws.sign.v4 import (
             datefmt,
             signed_request,
             )

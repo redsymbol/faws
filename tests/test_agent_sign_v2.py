@@ -4,7 +4,7 @@ The following tests need to be re-enabled and made passing:
   
 '''
 import unittest
-from amitools.creds import Creds
+from faws.creds import Creds
 TEST_CREDS = Creds(
     'AKIAIOSFODNN7EXAMPLE',
     'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY',
@@ -33,7 +33,7 @@ class TestSignV2(unittest.TestCase):
     def test_signed_request(self):
         # taken from http://docs.aws.amazon.com/general/latest/gr/signature-version-2.html
         from urllib.parse import unquote
-        from amitools.sign.v2 import signed_request_basic
+        from faws.sign.v2 import signed_request_basic
         method = 'GET'
         url = 'https://elasticmapreduce.amazonaws.com'
         params = {
@@ -69,7 +69,7 @@ AWSAccessKeyId=AKIAIOSFODNN7EXAMPLE&Action=DescribeJobFlows&SignatureMethod=Hmac
 
     def test_signature(self):
         from urllib.parse import unquote
-        from amitools.sign.v2 import signature
+        from faws.sign.v2 import signature
         expected_signature = unquote('i91nKc4PWAt0JJIdXwz9HxZCJDdiy6cf%2FMj6vPxyYIs%3D')
         string_to_sign_value = '''GET
 elasticmapreduce.amazonaws.com
@@ -80,7 +80,7 @@ AWSAccessKeyId=AKIAIOSFODNN7EXAMPLE&Action=DescribeJobFlows&SignatureMethod=Hmac
         self.assertSequenceEqual(expected_signature, actual_signature)
         
     def _test_signature_canonical_str(self):
-        from amitools.sign.v2 import canonical_str
+        from faws.sign.v2 import canonical_str
         method = 'GET'
         endpoint = 'https://elasticmapreduce.amazonaws.com/'
         params = {
@@ -100,7 +100,7 @@ AWSAccessKeyId=AKIAIOSFODNN7EXAMPLE&Action=DescribeJobFlows&SignatureMethod=Hmac
         
     def _test_signed_request_ec2_POST_DescribeInstances(self):
         from urllib.parse import unquote
-        from amitools.sign.v2 import signed_request_basic
+        from faws.sign.v2 import signed_request_basic
         creds = Creds(
             'AKIAIZITJ2OY2UJKRWHQ',
             'ZfDPmZWdZcEAH293+XPAxn386zf2lQIvRgakag3m',

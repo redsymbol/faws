@@ -1,4 +1,4 @@
-from amitools.sign.common import (
+from faws.sign.common import (
     SignedRequestInfo,
     datadict2payload,
     build_url,
@@ -282,7 +282,7 @@ def signed_request_basic(
     when=None,
     ):
     import datetime
-    from amitools.sign.v4 import datefmt
+    from faws.sign.v4 import datefmt
     from urllib.parse import (
         urlparse,
         quote,

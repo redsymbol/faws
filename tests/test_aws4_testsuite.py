@@ -19,13 +19,13 @@ AWS4_TESTSUITE_HOME = os.environ['AWS4_TESTSUITE_HOME']
 
 import unittest
 import datetime
-from amitools.sign.v4 import (
+from faws.sign.v4 import (
     signed_request_basic,
     DATETIME_F,
     DATETIME_HTTP_F,
     )
 
-from amitools.creds import Creds
+from faws.creds import Creds
 REGION = 'us-east-1'
 SERVICE_NAME = 'host'
 HOSTNAME = 'host.foo.com'

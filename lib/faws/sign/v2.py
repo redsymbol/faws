@@ -1,4 +1,4 @@
-from amitools.sign.common import (
+from faws.sign.common import (
     DATETIME_ISO8601_F,
     SignedRequestInfo,
     datadict2payload,

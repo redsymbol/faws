@@ -8,12 +8,12 @@ The following tests need to be re-enabled and made passing:
 import unittest
 import datetime
 
-from amitools.sign.v4 import DATETIME_F
+from faws.sign.v4 import DATETIME_F
 
 class TestSignV4(unittest.TestCase):
     maxDiff=None
     def test_trimmed(self):
-        from amitools.sign.v4 import trimall
+        from faws.sign.v4 import trimall
         testdata = [
             ('iam.amazonaws.com',
              'iam.amazonaws.com'),
@@ -36,7 +36,7 @@ class TestSignV4(unittest.TestCase):
             self.assertSequenceEqual(expected, actual, ii)
 
     def test_canonical_headers(self):
-        from amitools.sign.v4 import canonical_headers
+        from faws.sign.v4 import canonical_headers
         header_dict = {
             'host'         : 'iam.amazonaws.com',
             'Content-type' : 'application/x-www-form-urlencoded; charset=utf-8',
@@ -53,7 +53,7 @@ x-amz-date:20120228T030031Z
         self.assertSequenceEqual(expected, canonical_headers(header_dict))
         
     def _test_canonical_request_body(self):
-        from amitools.sign.v4 import canonical_request_body
+        from faws.sign.v4 import canonical_request_body
         # POST form
         method = 'POST'
         url = 'http://iam.amazonaws.com/'
@@ -78,7 +78,7 @@ action;content-type;host;version;x-amz-date'''
         self.assertSequenceEqual(expected, cr_str)
 
     def test_hexhash(self):
-        from amitools.sign.v4 import hexhash
+        from faws.sign.v4 import hexhash
         # test on bare payload
         payload = 'Action=ListUsers&Version=2010-05-08'
         payload_hexhash = 'b6359072c78d70ebee1e81adcbab4f01bf2c23245fa365ef83fe8f1f955085e2'
@@ -99,7 +99,7 @@ b6359072c78d70ebee1e81adcbab4f01bf2c23245fa365ef83fe8f1f955085e2'''
 
     # TODO: do I need this test?
     def _test_payload(self):
-        from amitools.sign.v4 import payload
+        from faws.sign.v4 import payload
         params = {
             'Action' : 'ListUsers',
             'Version' : '2010-05-08',
@@ -110,7 +110,7 @@ b6359072c78d70ebee1e81adcbab4f01bf2c23245fa365ef83fe8f1f955085e2'''
         self.assertSequenceEqual('', payload({}))
 
     def test_string_to_sign(self):
-        from amitools.sign.v4 import string_to_sign
+        from faws.sign.v4 import string_to_sign
         when = datetime.datetime.strptime('20110909T233600Z', DATETIME_F)
         region = 'us-east-1'
         service = 'iam'
@@ -124,7 +124,7 @@ b6359072c78d70ebee1e81adcbab4f01bf2c23245fa365ef83fe8f1f955085e2'''
 
     def test_signing_key_internal(self):
         # test data from http://docs.aws.amazon.com/general/latest/gr/signature-v4-examples.html
-        from amitools.sign.v4 import _signing_key
+        from faws.sign.v4 import _signing_key
         secret_key = 'wJalrXUtnFEMI/K7MDENG+bPxRfiCYEXAMPLEKEY'
         when = datetime.datetime.strptime('20120215T233600Z', DATETIME_F)
         region = 'us-east-1'
@@ -141,7 +141,7 @@ b6359072c78d70ebee1e81adcbab4f01bf2c23245fa365ef83fe8f1f955085e2'''
         
     def test_signing_key(self):
         # from example on http://docs.aws.amazon.com/general/latest/gr/sigv4-calculate-signature.html
-        from amitools.sign.v4 import signing_key
+        from faws.sign.v4 import signing_key
         secret_key = 'wJalrXUtnFEMI/K7MDENG+bPxRfiCYEXAMPLEKEY'
         when = datetime.datetime.strptime('20110909T233600Z', DATETIME_F)
         region = 'us-east-1'
@@ -151,7 +151,7 @@ b6359072c78d70ebee1e81adcbab4f01bf2c23245fa365ef83fe8f1f955085e2'''
         self.assertEqual(expected, actual)
 
     def test_signature(self):
-        from amitools.sign.v4 import signature
+        from faws.sign.v4 import signature
         derived_signing_key = b'\x98\xf1\xd8\x89\xfe\xc4\xf4B\x1a\xdcR+\xab\x0c\xe1\xf8.i)\xc2b\xed\x15\xe5\xa9L\x90\xef\xd1\xe3\xb0\xe7'
         str_to_sign = '''AWS4-HMAC-SHA256
 20110909T233600Z
@@ -162,13 +162,13 @@ b6359072c78d70ebee1e81adcbab4f01bf2c23245fa365ef83fe8f1f955085e2'''
         self.assertSequenceEqual(expected, actual)
 
     def _test_signed_request(self):
-        from amitools.sign.v4 import (
+        from faws.sign.v4 import (
             signed_request,
             SignedRequestInfo,
             )
-        from amitools.service import get_service
-        from amitools.sign.v4 import DATETIME_F
-        from amitools.creds import Creds
+        from faws.service import get_service
+        from faws.sign.v4 import DATETIME_F
+        from faws.creds import Creds
         
         # GET request
         method = 'GET'
