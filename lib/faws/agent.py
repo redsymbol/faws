@@ -6,7 +6,7 @@ class Agent:
             from faws.creds import Creds
             creds = Creds.discover()
         self.creds = creds
-        self.executor = ThreadPoolExecutor(max_workers=2)
+        self.executor = ThreadPoolExecutor(max_workers=5)
         self.url = 'https://{}.ec2.amazonaws.com/'.format(self.creds.region)
 
     def full_params(self, method, action, params, now):
