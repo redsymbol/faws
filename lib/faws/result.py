@@ -36,7 +36,7 @@ class AWSResult:
     def __init__(self, response_text : str):
         self.response_text = prep_response_text(response_text)
         
-    def json(self):
+    def json_full(self):
         if self._json is None:
             self._json = parse_xml_as_json(self.tree())
         return self._json

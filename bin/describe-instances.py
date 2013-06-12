@@ -22,4 +22,4 @@ if '__main__' == __name__:
 
     from faws.result import AWSResult
     result = AWSResult(value.text)
-    pprint.pprint(result.json())
+    pprint.pprint(result.json_full())

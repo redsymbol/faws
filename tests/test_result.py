@@ -148,5 +148,5 @@ class TestAWSResult(unittest.TestCase):
     def test_parse_json(self):
         from faws.result import AWSResult
         result = AWSResult(response_text_2)
-        json = result.json()
+        json = result.json_full()
         self.assertEqual(json_2, json)
