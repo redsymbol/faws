@@ -14,8 +14,12 @@ def get_args():
     return parser.parse_args()
 
 if '__main__' == __name__:
+    import pprint
     from faws import Agent
     agent = Agent()
     future = agent.callf('DescribeInstances')
     value = future.result()
-    print(value.text)
+
+    from faws.result import AWSResult
+    result = AWSResult(value.text)
+    pprint.pprint(result.json())
