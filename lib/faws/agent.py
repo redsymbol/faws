@@ -28,7 +28,6 @@ class Agent:
                            'ec2',
                            cr_hash(method, self.url, params, now),
                            now))
-#        params['AwsSecretAccessKey'] = self.creds.secret_key
         
     def callf(self, action, params=None, service_name='ec2', now=None):
         from faws.sign.common import DATETIME_ISO8601_F
@@ -52,8 +51,6 @@ class Agent:
         else:
             do_request = requests.put
         sr = signed_request(service, params, self.creds, now)
-        import pdb
-#        pdb.set_trace()
         def do_call():
             return do_request(
                 sr.url,
@@ -91,8 +88,6 @@ class Agent:
         else:
             do_request = requests.put
         sr = signed_request(service, params, self.creds, when=now)
-        import pdb
-#        pdb.set_trace()
         def do_call():
             return do_request(
                 sr.url,
