@@ -1,0 +1,67 @@
+faws - the Futuristic AWS library for Python 3
+
+faws is a Python library for working with the API of Amazon Web
+Services. It differs from 
+[[https://github.com/boto/boto|boto]], the current gold standard, in
+several ways:
+
+ * faws is concurrent and asynchronous by design
+ * faws maps more directly with the AWS REST api, bringing key benefits
+ * faws works only with Python 3.
+
+# Example
+
+    from faws import Agent
+    agent = Agent()
+    # The following is non-blocking.
+    # Returns an instance of concurrent.futures.Future
+    get_instances = agent.callf('DescribeInstances')
+    # Do something else for a while...
+    # Maybe make another high-latency API call
+    # Now collect the result
+    result = future.result()
+    for instance_id in result.tree().iter('instanceId'):
+        print(instance_id.text)
+
+# Should I use boto or faws?
+
+faws is currently in active development; boto is much more
+mature. Until faws is more fully developed, most production projects
+will be better served by using boto.
+
+A few reasons you might want to use faws instead:
+
+1. boto is currently Python 2 only; the next version, boto 3, will
+support both Python 2 and 3
+([[https://groups.google.com/forum/#!msg/boto-users/KRz6bvBV7lg/1zG6jwAqa5wJ|per
+the boto developer]]), but there is no timetable for its stable
+release yet.  In contrast, faws is focused entirely on Python 3 (in
+particular, 3.3 and higher).  It will never make consessions for
+Python 2 compatibility. This focus is a benefit if your application is
+Python 3-only anyway.
+
+2. faws lets you extensively uses futures. These are introduced in
+Python 3.3, in the concurrent.futures package in the standard
+library. Since API calls across the network to AWS have non-zero
+latency, this alone allows you to create much more responsive
+applications without the effort and danger of threading, etc.
+
+3. The interface of faws maps much more closely and directly to the
+AWS API, allowing you to use the official API reference as
+documentation for much of faws. It's also structured to solve the
+"API" lag problem: when the AWS API is updated, you can utilize its
+new features without being forced to upgrade faws.
+
+# Author
+
+Created by [[http://redsymbol.net|Aaron Maxwell]]. To give feedback,
+bug reports, complaints, praise, etc., contact him at amax at
+redsymbol dot net .
+
+Aaron is selectively available as a consultant for AWS/cloud migration
+and architecture projects; reach him at the same email address.
+
+# License
+
+Copyright 2013 Aaron Maxwell. Licensed under GPL v.3. 
+All other rights reserved.
