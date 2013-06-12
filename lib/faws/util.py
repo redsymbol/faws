@@ -8,3 +8,8 @@ def random_name(prefix=None):
         int(time.time()),
         randint(maxsize >> 3, maxsize),
         )
+
+def assert_pyversion():
+    import sys
+    assert sys.version_info.major >= 3, sys.version
+    assert sys.version_info.minor >= 3, sys.version

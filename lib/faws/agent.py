@@ -30,7 +30,7 @@ class Agent:
                            now))
 #        params['AwsSecretAccessKey'] = self.creds.secret_key
         
-    def call(self, action, params=None, service_name='ec2', now=None):
+    def callf(self, action, params=None, service_name='ec2', now=None):
         from faws.sign.common import DATETIME_ISO8601_F
         import requests
         import datetime
@@ -62,7 +62,7 @@ class Agent:
                 )
         return self.executor.submit(do_call)
 
-    def call_v4(self, action, params=None, service_name='ec2', now=None):
+    def callf_v4(self, action, params=None, service_name='ec2', now=None):
         from faws.sign.common import DATETIME_ISO8601_F
         import requests
         import datetime
