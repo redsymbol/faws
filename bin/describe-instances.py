@@ -18,5 +18,6 @@ if '__main__' == __name__:
     from faws import Agent
     agent = Agent()
     future = agent.callf('DescribeInstances')
-    value = future.result()
-    pprint.pprint(value.json_full())
+    result = future.result()
+    for instance_id in result.tree().iter('instanceId'):
+        print(instance_id.text)
