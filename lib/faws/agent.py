@@ -30,7 +30,7 @@ class Agent:
                            now))
         
     def callf(self, action, params=None, service_name='ec2', now=None):
-        from faws.sign.common import DATETIME_ISO8601_F
+        from faws.futures import Future
         import requests
         import datetime
         from faws.service import get_service
@@ -57,7 +57,7 @@ class Agent:
                 data = sr.payload,
                 headers = sr.headers,
                 )
-        return self.executor.submit(do_call)
+        return Future(self.executor.submit(do_call))
 
     def callf_v4(self, action, params=None, service_name='ec2', now=None):
         from faws.sign.common import DATETIME_ISO8601_F

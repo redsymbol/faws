@@ -19,7 +19,4 @@ if '__main__' == __name__:
     agent = Agent()
     future = agent.callf('DescribeInstances')
     value = future.result()
-
-    from faws.result import AWSResult
-    result = AWSResult(value.text)
-    pprint.pprint(result.json_full())
+    pprint.pprint(value.json_full())
