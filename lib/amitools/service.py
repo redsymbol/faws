@@ -14,7 +14,7 @@ class EC2Service(Service):
     name = 'ec2'
     method = 'GET'
     def endpoint(self):
-        return '{}://ec2.{}.amazonaws.com/'.format(self.protocol, self.region)
+        return '{}://{}.ec2.amazonaws.com/'.format(self.protocol, self.region)
 
 class IAMService(Service):
     name = 'iam'

@@ -1,3 +1,8 @@
+'''
+The following tests need to be re-enabled and made passing:
+  test_signed_request_ec2_POST_DescribeInstances
+  
+'''
 import unittest
 from amitools.creds import Creds
 TEST_CREDS = Creds(
@@ -93,20 +98,45 @@ AWSAccessKeyId=AKIAIOSFODNN7EXAMPLE&Action=DescribeJobFlows&SignatureMethod=Hmac
         actual = canonical_str(method, endpoint, params)
         self.assertSequenceEqual(expected, actual)
         
-    def _test_signature(self):
-        from amitools.sign.v2 import signature
-        method = 'GET'
-        endpoint = 'https://elasticmapreduce.amazonaws.com/'
+    def _test_signed_request_ec2_POST_DescribeInstances(self):
+        from urllib.parse import unquote
+        from amitools.sign.v2 import signed_request_basic
+        creds = Creds(
+            'AKIAIZITJ2OY2UJKRWHQ',
+            'ZfDPmZWdZcEAH293+XPAxn386zf2lQIvRgakag3m',
+            'us-east-1',
+            )
+        method = 'POST'
+        url = 'https://us-east-1.ec2.amazonaws.com'
         params = {
-            'Action'           : 'DescribeJobFlows',
-            'Version'          : '2009-03-31',
-            'AWSAccessKeyId'   : 'AKIAIOSFODNN7EXAMPLE',
-#            'AwsSecretAccessKey' : 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY',
-            'SignatureVersion' : '2',
-            'SignatureMethod'  : 'HmacSHA256',
-            'Timestamp'        : '2011-10-03T15:19:30',
+            'Action' : 'DescribeInstances',
+            'Version' : '2013-02-01',
             }
-        expected = b'i91nKc4PWAt0JJIdXwz9HxZCJDdiy6cf/Mj6vPxyYIs='
-        actual = signature(method, endpoint, params)
-        self.assertSequenceEqual(expected, actual)
+        timestamp_val = unquote('2013-05-09T23%3A23%3A03.963Z')
 
+        expected_string_to_sign_value = '''POST
+us-east-1.ec2.amazonaws.com
+/
+
+AWSAccessKeyId=AKIAIZITJ2OY2UJKRWHQ&Action=DescribeInstances&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2013-05-09T23%3A23%3A03.963Z&Version=2013-02-01'''
+        expected_url = 'http://us-east-1.ec2.amazonaws.com/'
+        expected_payload = 'Action=DescribeInstances&SignatureMethod=HmacSHA256&AWSAccessKeyId=AKIAIZITJ2OY2UJKRWHQ&SignatureVersion=2&Version=2013-02-01&Signature=qaiwRgKRzlnHWGlR2ANhD0vLclYBJeghGkush0SD1C4%3D&Timestamp=2013-05-09T23%3A23%3A03.963Z'
+        expected_signature = unquote('VdZti1oSszsAiCYVrMGKx3nxbXiiXBIlL4V80%2FkyfO0%3D')
+        expected_params_nosig = {
+            'Action'           : 'DescribeInstances',
+            'Version'          : '2013-02-01',
+            'Timestamp'        : timestamp_val,
+            'SignatureMethod'  : 'HmacSHA256',
+            'SignatureVersion' : '2',
+            'AWSAccessKeyId'   : creds.access_key,
+            }
+        
+        sr = signed_request_basic(method, url, params, creds, timestamp_val)
+
+        sr_params_nosig = dict(sr.aux['sig_params'])
+        del sr_params_nosig['Signature']
+        
+        self.assertDictEqual(expected_params_nosig, sr_params_nosig)
+        self.assertSequenceEqual(expected_string_to_sign_value, sr.aux['string_to_sign_value'])
+        self.assertSequenceEqual(expected_signature, sr.aux['signature'])
+        self.assertUrlEqual(expected_url, sr.url)
