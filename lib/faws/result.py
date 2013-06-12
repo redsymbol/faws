@@ -4,13 +4,19 @@ import json
 def parse_xml_as_json(root : 'lxml.etree.Element'):
     json = dict()
     for child in root.iterchildren():
+        new_value = None
         if child.text and child.text.strip() != '':
-            assert child.tag not in json, child.tag
-            json[child.tag] = child.text
+            new_value = child.text
         else:
-            json[child.tag] = parse_xml_as_json(child)
-            if len(json[child.tag]) == 0:
-                json[child.tag] = ''
+            new_value = parse_xml_as_json(child)
+            if len(new_value) == 0:
+                new_value = ''
+        if child.tag not in json:
+            json[child.tag] = new_value
+        else:
+            if type(json[child.tag]) != list:
+                json[child.tag] = [json[child.tag]]
+            json[child.tag].append(new_value)
     return json
 
 def prep_response_text(response_text):
@@ -27,19 +33,19 @@ def prep_response_text(response_text):
         end = response_text.find('"', start+len(' xmlns="'))
         response_text = response_text[:start] + response_text[end+1:]
     return response_text
-    
+
 class AWSResult:
 
     _tree = None
-    _json = None
+    _json_full = None
     
     def __init__(self, response_text : str):
         self.response_text = prep_response_text(response_text)
         
     def json_full(self):
-        if self._json is None:
-            self._json = parse_xml_as_json(self.tree())
-        return self._json
+        if self._json_full is None:
+            self._json_full = parse_xml_as_json(self.tree())
+        return self._json_full
 
     def tree(self):
         '''
