@@ -14,7 +14,6 @@ def get_args():
     return parser.parse_args()
 
 if '__main__' == __name__:
-    import pprint
     from faws import Agent
     agent = Agent()
     future = agent.callf('DescribeInstances')
