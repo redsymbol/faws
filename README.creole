@@ -1,22 +1,29 @@
 faws - the Futuristic AWS library for Python 3
 
-faws is a Python library for working with the API of Amazon Web
-Services. It differs from 
+Faws is a Python library for working with the API of Amazon Web
+Services. It is called "futuristic" because of how it extensively uses
+futures - introduced in Python 3.2 - to let you easily invoke the AWS
+API in parallel.
+
+Faws differs from 
 [[https://github.com/boto/boto|boto]], the current gold standard, in
 several ways:
 
  * faws is concurrent and asynchronous by design
  * faws maps more directly with the AWS REST api, bringing key benefits
- * faws works only with Python 3
- * boto is much more mature than faws
+ * faws works with Python 3 (and only Python 3)
+ * boto is much more mature; faws is more early-stage and experimental
 
-Your interaction with faws will extensively use the
-[[http://docs.python.org/3/library/concurrent.futures.html|futures functionality]]
-introduced in Python 3.2. (Hence, "the futuristic AWS
-library"!) This lets you leverage concurrency with very
-little development effort. Your latency-bound API calls over the
-network can execute simultaneously, and your application will run that
-much faster.
+Your interaction with faws will extensively use Python's new-ish
+[[http://docs.python.org/3/library/concurrent.futures.html|futures functionality]].
+This lets you leverage concurrency with very little development
+effort. Your latency-bound API calls over the network can execute in
+parallel, and your application will run that much faster.
+
+faws is in an early, incomplete stage. While its novel ideas have
+exciting potential, until it matures, most people developing
+production software will be better served by using boto instead. See
+"Should I use boto or faws?" below for how you can decide.
 
 = Example
 
@@ -47,7 +54,7 @@ support both Python 2 and 3
 ([[https://groups.google.com/forum/#!msg/boto-users/KRz6bvBV7lg/1zG6jwAqa5wJ|per the boto developer]]),
  but there is no timetable for its stable
 release yet.  In contrast, faws is focused entirely on Python 3 (in
-particular, 3.2 and higher).  It will never make consessions for
+particular, 3.2 and higher).  It will never make concessions for
 Python 2 compatibility. This focus is a benefit if your application is
 Python 3-only anyway.
 
