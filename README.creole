@@ -10,6 +10,14 @@ several ways:
  * faws works only with Python 3
  * boto is much more mature than faws
 
+Your interaction with faws will extensively use the
+[[http://docs.python.org/3/library/concurrent.futures.html|futures
+functionality]] introduced in Python 3.2. (Hence, "the futuristic AWS
+library"!) This lets you leverage concurrency of API calls with very
+little development effort. Your latency-bound API calls over the
+network can execute simultaneously, and your application will run that
+much faster.
+
 = Example
 
 {{{
@@ -39,12 +47,12 @@ support both Python 2 and 3
 ([[https://groups.google.com/forum/#!msg/boto-users/KRz6bvBV7lg/1zG6jwAqa5wJ|per the boto developer]]),
  but there is no timetable for its stable
 release yet.  In contrast, faws is focused entirely on Python 3 (in
-particular, 3.3 and higher).  It will never make consessions for
+particular, 3.2 and higher).  It will never make consessions for
 Python 2 compatibility. This focus is a benefit if your application is
 Python 3-only anyway.
 
 2. faws lets you extensively uses futures. These are introduced in
-Python 3.3, in the concurrent.futures package in the standard
+Python 3.2, in the concurrent.futures package in the standard
 library. Since API calls across the network to AWS have non-zero
 latency, this alone allows you to create much more responsive
 applications without the effort and danger of threading, etc.
