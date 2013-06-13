@@ -36,8 +36,8 @@ A few reasons you might want to use faws instead:
 
 1. boto is currently Python 2 only; the next version, boto 3, will
 support both Python 2 and 3
-([[https://groups.google.com/forum/#!msg/boto-users/KRz6bvBV7lg/1zG6jwAqa5wJ|per
-the boto developer]]), but there is no timetable for its stable
+( [[https://groups.google.com/forum/#!msg/boto-users/KRz6bvBV7lg/1zG6jwAqa5wJ|per
+the boto developer]] ), but there is no timetable for its stable
 release yet.  In contrast, faws is focused entirely on Python 3 (in
 particular, 3.3 and higher).  It will never make consessions for
 Python 2 compatibility. This focus is a benefit if your application is
