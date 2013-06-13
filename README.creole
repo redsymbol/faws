@@ -54,20 +54,19 @@ support both Python 2 and 3
 ([[https://groups.google.com/forum/#!msg/boto-users/KRz6bvBV7lg/1zG6jwAqa5wJ|per the boto developer]]),
  but there is no timetable for its stable
 release yet.  In contrast, faws is focused entirely on Python 3 (in
-particular, 3.2 and higher).  It will never make concessions for
-Python 2 compatibility. This focus is a benefit if your application is
-Python 3-only anyway.
+particular, 3.2 and higher).  If you want to write your application in
+Python 3, you must either find an unofficial port of boto, or use faws.
 
-2. faws lets you extensively use futures. These are introduced in
-Python 3.2, in the concurrent.futures package in the standard
-library. Since API calls across the network to AWS have non-zero
-latency, this alone allows you to create much more responsive
-applications without the effort and danger of threading, etc.
+2. faws lets you extensively use futures, integrated strongly into its
+API. Futures are in the Python 3 standard library, in the
+concurrent.futures package. Since API calls across the network to AWS
+have significant latency, this alone allows you to create much more
+responsive applications.
 
 3. The interface of faws maps much more closely and directly to the
 AWS API, allowing you to use the official API reference as
-documentation for much of faws. It's also structured to solve the
-"API lag" problem: when the AWS API is updated, you can utilize its
+documentation for much of faws. It's also structured to solve the "API
+lag" problem: when the AWS API is updated, you can often utilize its
 new features without being forced to upgrade faws.
 
 = Author
