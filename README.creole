@@ -52,10 +52,11 @@ A few reasons you might want to use faws instead:
 1. boto is currently Python 2 only; the next version, boto 3, will
 support both Python 2 and 3
 ([[https://groups.google.com/forum/#!msg/boto-users/KRz6bvBV7lg/1zG6jwAqa5wJ|per the boto developer]]),
- but there is no timetable for its stable
+but there is no timetable for its stable
 release yet.  In contrast, faws is focused entirely on Python 3 (in
 particular, 3.2 and higher).  If you want to write your application in
-Python 3, you must either find an unofficial port of boto, or use faws.
+Python 3 today, you must either find an unofficial port of boto, or
+use faws.
 
 2. faws lets you extensively use futures, integrated strongly into its
 API. Futures are in the Python 3 standard library, in the
