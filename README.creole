@@ -51,7 +51,7 @@ particular, 3.2 and higher).  It will never make consessions for
 Python 2 compatibility. This focus is a benefit if your application is
 Python 3-only anyway.
 
-2. faws lets you extensively uses futures. These are introduced in
+2. faws lets you extensively use futures. These are introduced in
 Python 3.2, in the concurrent.futures package in the standard
 library. Since API calls across the network to AWS have non-zero
 latency, this alone allows you to create much more responsive
