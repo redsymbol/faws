@@ -11,8 +11,8 @@ several ways:
  * boto is much more mature than faws
 
 Your interaction with faws will extensively use the
-[[http://docs.python.org/3/library/concurrent.futures.html|futures
-functionality]] introduced in Python 3.2. (Hence, "the futuristic AWS
+[[http://docs.python.org/3/library/concurrent.futures.html|futures functionality]]
+introduced in Python 3.2. (Hence, "the futuristic AWS
 library"!) This lets you leverage concurrency of API calls with very
 little development effort. Your latency-bound API calls over the
 network can execute simultaneously, and your application will run that
