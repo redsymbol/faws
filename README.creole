@@ -1,6 +1,6 @@
 faws - the Futuristic AWS library for Python 3
 
-Faws is a Python library for working with the API of Amazon Web
+**faws** is a Python 3 library for working with the API of Amazon Web
 Services. It is called "futuristic" because of how it extensively uses
 futures - introduced in Python 3.2 - to let you easily invoke the AWS
 API in parallel.
