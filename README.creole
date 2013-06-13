@@ -36,7 +36,7 @@ for instance_id in result.tree().iter('instanceId'):
 
 = Should I use boto or faws?
 
-faws is currently in active development; boto is much more
+faws is currently in early development; boto is much more
 mature. Until faws is more fully developed, most production projects
 will be better served by using boto.
 
