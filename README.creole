@@ -9,21 +9,23 @@ several ways:
  * faws maps more directly with the AWS REST api, bringing key benefits
  * faws works only with Python 3.
 
-# Example
+= Example
 
-    from faws import Agent
-    agent = Agent()
-    # The following is non-blocking.
-    # Returns an instance of concurrent.futures.Future
-    get_instances = agent.callf('DescribeInstances')
-    # Do something else for a while...
-    # Maybe make another high-latency API call
-    # Now collect the result
-    result = future.result()
-    for instance_id in result.tree().iter('instanceId'):
-        print(instance_id.text)
+{{{
+from faws import Agent
+agent = Agent()
+# The following is non-blocking.
+# Returns an instance of concurrent.futures.Future
+get_instances = agent.callf('DescribeInstances')
+# Do something else for a while...
+# Maybe make another high-latency API call
+# Now collect the result
+result = future.result()
+for instance_id in result.tree().iter('instanceId'):
+    print(instance_id.text)
+}}}
 
-# Should I use boto or faws?
+= Should I use boto or faws?
 
 faws is currently in active development; boto is much more
 mature. Until faws is more fully developed, most production projects
@@ -52,7 +54,7 @@ documentation for much of faws. It's also structured to solve the
 "API" lag problem: when the AWS API is updated, you can utilize its
 new features without being forced to upgrade faws.
 
-# Author
+= Author
 
 Created by [[http://redsymbol.net|Aaron Maxwell]]. To give feedback,
 bug reports, complaints, praise, etc., contact him at amax at
@@ -61,7 +63,7 @@ redsymbol dot net .
 Aaron is selectively available as a consultant for AWS/cloud migration
 and architecture projects; reach him at the same email address.
 
-# License
+= License
 
 Copyright 2013 Aaron Maxwell. Licensed under GPL v.3. 
 All other rights reserved.
