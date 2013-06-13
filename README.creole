@@ -7,7 +7,8 @@ several ways:
 
  * faws is concurrent and asynchronous by design
  * faws maps more directly with the AWS REST api, bringing key benefits
- * faws works only with Python 3.
+ * faws works only with Python 3
+ * boto is much more mature than faws
 
 = Example
 
