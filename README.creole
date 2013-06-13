@@ -60,7 +60,7 @@ applications without the effort and danger of threading, etc.
 3. The interface of faws maps much more closely and directly to the
 AWS API, allowing you to use the official API reference as
 documentation for much of faws. It's also structured to solve the
-"API" lag problem: when the AWS API is updated, you can utilize its
+"API lag" problem: when the AWS API is updated, you can utilize its
 new features without being forced to upgrade faws.
 
 = Author
